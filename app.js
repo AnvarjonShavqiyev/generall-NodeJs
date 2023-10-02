@@ -10,6 +10,8 @@ const orderRoutes = require("./api/routes/orders");
 const wordsRoutes = require("./api/routes/addwords");
 const adminRoutes = require("./api/routes/admin");
 
+
+mongoose.set('strictQuery',true);
 mongoose.connect(
   "mongodb+srv://Anvarjon:GeneralDB@general.w4e9l2e.mongodb.net/test?retryWrites=true&w=majority"
 );
