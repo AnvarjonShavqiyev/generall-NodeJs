@@ -11,7 +11,7 @@ const wordsRoutes = require("./api/routes/addwords");
 const adminRoutes = require("./api/routes/admin");
 
 mongoose.connect(
-  "mongodb+srv://Anvarjon:GeneralDB@general.w4e9l2e.mongodb.net/?retryWrites=true&w=majority"
+  "mongodb+srv://Anvarjon:GeneralDB@general.w4e9l2e.mongodb.net/test?retryWrites=true&w=majority"
 );
 
 app.use(cors());
