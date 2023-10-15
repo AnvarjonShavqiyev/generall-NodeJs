@@ -9,6 +9,7 @@ const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
 const wordsRoutes = require("./api/routes/addwords");
 const adminRoutes = require("./api/routes/admin");
+const userRoutes = require("./api/routes/user");
 
 
 mongoose.set('strictQuery',true);
@@ -40,6 +41,7 @@ app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 app.use("/admin/addwords", wordsRoutes);
 app.use("/admin", adminRoutes);
+app.use("/user", userRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");

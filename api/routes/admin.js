@@ -1,29 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const Admin = require("../modules/admin");
-
-router.post('/', (req, res, next) => {
-    const admin = new Admin({
-        _id: req.body._id,
-        username: req.body.username,
-        password: req.body.password
-    })
-    admin
-      .save()
-      .then((result) => {
-        res.status(200).json({
-          message: "Successfully!",
-          createdAdmin: result,
-        });
-      })
-      .catch((error) => {
-        res.status(500).json({
-          error: error,
-        });
-      });
-});
 
 router.get('/', (req,res,next) => {
     Admin.find()
@@ -37,6 +17,45 @@ router.get('/', (req,res,next) => {
         })
     })
 });
+
+router.post('/login',(req,res,next) =>{
+  Admin.find({username:req.body.username})
+      .exec()
+      .then(admin => {
+          if(admin.length < 1){
+              return res.status(401).json({
+                  message: 'Auth failed'
+              })
+          }
+          bcrypt.compare(req.body.password,admin[0].password, (err,result) => {
+              if(err){
+                  return res.status(401).json({
+                      message: 'Auth failed'
+                  })
+              }
+              if(result){
+                  const token = jwt.sign({
+                      username: admin[0].username,
+                  }, process.env.JWT_KEY,{
+                      expiresIn: "2h"
+                  })
+                  return res.status(200).json({
+                      message: 'Auth successful',
+                      token: token
+                  })
+              }
+              res.status(401).json({
+                  message:'Auth failed'
+              })
+          })
+      })
+      .catch((err) => {
+          res.status(500).json({
+            error: err,
+          });
+      })
+})  
+
 router.get('/:adminId', async (req,res,next) => {
     const id = req.params.adminId
     await Admin.findById(id)
