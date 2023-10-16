@@ -18,6 +18,47 @@ router.get('/', (req,res,next) => {
     })
 });
 
+router.post("/signup", (req, res, next) => {  
+  Admin.find({ username: req.body.username })
+    .exec()
+    .then((user) => {
+      console.log(user);
+      if (user.length >= 1) {
+        return res.status(422).json({
+          message: "Mail exists!",
+        });
+      } else {
+        bcrypt.hash(req.body.password, 10, (err, hash) => {
+          if (err) {
+            return res.status(500).json({
+              error: err,
+            });
+          } else {
+            const user = Admin({
+              _id: req.body._id,
+              username: req.body.username,
+              password: hash,
+            });
+            user
+              .save()
+              .then((result) => {
+                console.log(result);
+                return res.status(201).json({
+                  message: "User created",
+                  username: req.body.userName
+                });
+              })
+              .catch((err) => {
+                return res.status(500).json({
+                  error: err,
+                });
+              });
+          }
+        });
+      }
+    });
+});
+
 router.post('/login',(req,res,next) =>{
   Admin.find({username:req.body.username})
       .exec()
