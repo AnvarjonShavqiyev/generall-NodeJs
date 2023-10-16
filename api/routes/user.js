@@ -22,7 +22,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/:userId", async (req, res, next) => {
-  const id = req.params.adminId;
+  const id = req.params.userId;
   await User.findById(id)
     .exec()
     .then((doc) => {
