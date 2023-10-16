@@ -21,16 +21,20 @@ router.get("/", (req, res, next) => {
     });
 });
 
-router.get("/:userId", (req, res, next) => {
-  User.findById({ _id: req.params.userId })
+router.get("/:userId", async (req, res, next) => {
+  const id = req.params.adminId;
+  await User.findById(id)
     .exec()
-    .then((result) => {
-      res.status(200).json(result);
+    .then((doc) => {
+      const response = {
+        id: doc.id,
+        username: doc.username,
+        password: doc.password,
+      };
+      res.status(200).json(response);
     })
-    .catch((error) => {
-      res.status(500).json({
-        error: error,
-      });
+    .catch((err) => {
+      res.status(500).json({ error: err });
     });
 });
 
