@@ -27,6 +27,18 @@ router.post("/", (req, res, next) => {
     });
 });
 
+router.get("/allwords", (req, res, next) => {
+  Word.find()
+    .exec()
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error,
+      });
+    });
+});
 router.get("/words", (req, res, next) => {
   const page = req.query.page || 0;
   const wordsPerPage = 10;
