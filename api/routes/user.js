@@ -22,7 +22,7 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/:userId", (req, res, next) => {
-  User.findbyId({ _id: req.params.userId })
+  User.findById({ _id: req.params.userId })
     .exec()
     .then((result) => {
       res.status(200).json(result);
