@@ -26,12 +26,7 @@ router.get("/:userId", async (req, res, next) => {
   await User.findById(id)
     .exec()
     .then((doc) => {
-      const response = {
-        id: doc.id,
-        username: doc.username,
-        password: doc.password,
-      };
-      res.status(200).json(response);
+      res.status(200).json(doc);
     })
     .catch((err) => {
       res.status(500).json({ error: err });
