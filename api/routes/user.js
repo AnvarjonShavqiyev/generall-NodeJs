@@ -21,6 +21,19 @@ router.get("/", (req, res, next) => {
     });
 });
 
+router.get("/:userId", (req, res, next) => {
+  User.findbyId()
+    .exec()
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      res.status(500).json({
+        error: error,
+      });
+    });
+});
+
 router.post("/login", (req, res, next) => {
   User.find({ email: req.body.email })
     .exec()
