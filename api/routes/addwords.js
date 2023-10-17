@@ -41,7 +41,7 @@ router.get("/allwords", (req, res, next) => {
 });
 router.get("/words", (req, res, next) => {
   const page = req.query.page || 0;
-  const wordsPerPage = 10;
+  const wordsPerPage = req.query.count || 100;
   Word.find()
     .skip(page * wordsPerPage)
     .limit(wordsPerPage)
