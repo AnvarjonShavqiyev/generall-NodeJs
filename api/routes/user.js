@@ -100,6 +100,12 @@ router.post("/signup", (req, res, next) => {
               phoneNumber: req.body.phoneNumber,
               email: req.body.email,
               password: hash,
+              extra: {
+                payment: "false",
+                score: 0,
+                levelsWord: 0,
+                levelsTest: 0,
+              },
             });
             user
               .save()
