@@ -42,12 +42,16 @@ router.get("/allwords", (req, res, next) => {
 router.get("/words", (req, res, next) => {
   const page = req.query.page || 0;
   const wordsPerPage = req.query.count || 100;
+  let nextPage;
   Word.find()
     .skip(page * wordsPerPage)
     .limit(wordsPerPage)
     .exec()
     .then((result) => {
-      res.status(200).json(result);
+      res.status(200).json({
+        nextPage: nextPage,
+        result: result,
+      });
     })
     .catch((error) => {
       res.status(500).json({
