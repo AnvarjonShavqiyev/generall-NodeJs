@@ -126,7 +126,18 @@ router.post("/signup", (req, res, next) => {
       }
     });
 });
-
+router.patch("/:userId", async (req, res, next) => {
+  try{
+    const id = req.params.userId;
+    const updates = req.body;
+    const options = { new: true };
+    const result = await User.findByIdAndUpdate(id, updates, options);
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(500).json({
+      error: error,
+    });
+  }})
 router.delete("/:userId", (req, res, next) => {
   User.findByIdAndDelete({ _id: req.params.userId })
     .exec()
