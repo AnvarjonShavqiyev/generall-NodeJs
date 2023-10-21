@@ -6,8 +6,6 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../modules/user");
 
-// "dev": "nodemon service.js",
-
 router.get("/", (req, res, next) => {
   User.find()
     .exec()
@@ -127,7 +125,7 @@ router.post("/signup", (req, res, next) => {
     });
 });
 router.patch("/:userId", async (req, res, next) => {
-  try{
+  try {
     const id = req.params.userId;
     const updates = req.body;
     const options = { new: true };
@@ -137,7 +135,8 @@ router.patch("/:userId", async (req, res, next) => {
     res.status(500).json({
       error: error,
     });
-  }})
+  }
+});
 router.delete("/:userId", (req, res, next) => {
   User.findByIdAndDelete({ _id: req.params.userId })
     .exec()
