@@ -11,8 +11,7 @@ const wordsRoutes = require("./api/routes/addwords");
 const adminRoutes = require("./api/routes/admin");
 const userRoutes = require("./api/routes/user");
 
-
-mongoose.set('strictQuery',true);
+mongoose.set("strictQuery", true);
 mongoose.connect(
   "mongodb+srv://Anvarjon:GeneralDB@general.w4e9l2e.mongodb.net/test?retryWrites=true&w=majority"
 );
@@ -21,8 +20,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use('/uploads',express.static('uploads'))
-
+app.use("/uploads", express.static("uploads"));
 
 app.use((req, res, next) => {
   res.header("Acces-Control-Allow-Origin", "*");
@@ -57,4 +55,3 @@ app.use((error, req, res, next) => {
   });
 });
 module.exports = app;
-
