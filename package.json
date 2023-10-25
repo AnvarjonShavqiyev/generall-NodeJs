@@ -5,7 +5,11 @@
   "main": "service.js",
   "scripts": {
     "start": "node service.js",
+<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+    "dev": "nodemon service.js"
+>>>>>>> fd9ae6ed455e1433ecb0aceb076c7460911f6128
   },
   "keywords": [
     "node",
